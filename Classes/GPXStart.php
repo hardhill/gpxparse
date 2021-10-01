@@ -84,7 +84,7 @@ class GPXStart extends phpGPX
         $this->GetTrack()->recalculateStats();
     }
     // время в движении
-    public function TimeMove():int
+    public function MovingTime():int
     {
         $timemove = 0;
         $points = $this->track->getPoints();
@@ -105,7 +105,7 @@ class GPXStart extends phpGPX
             if($curPoint->difference>0){
                 $pace = $timedifference/$curPoint->difference;
                 if($pace < 3.0){
-                    echo $pace.PHP_EOL;
+                   // echo $pace.PHP_EOL;
                     $timemove = $timemove + $timedifference;
                 }
             }
@@ -125,6 +125,11 @@ class GPXStart extends phpGPX
             $seconds = floor($seconds_time - ($hours * 3600) - ($minutes * 60));
             return "$hours:$minutes:$seconds";
         }
+    }
+
+    public function AveragePaceMT()
+    {
+        return ($this->MovingTime()*1000)/$this->GetStat()->distance;
     }
 
 }

@@ -22,6 +22,7 @@ echo "Start at ->".$gpx->GetTrack()->stats->startedAt->format('H:i:s').PHP_EOL;
 echo "Finish at ->".$gpx->GetTrack()->stats->finishedAt->format('H:i:s').PHP_EOL;
 echo "Duration: ".GPXStart::secondsToTime($gpx->GetTrack()->stats->duration).PHP_EOL;
 echo "Distance: ".$gpx->GetTrack()->stats->distance.PHP_EOL;
+echo "Pace: ".$gpx->GetStat()->averagePace." or ".$gpx::secondsToTime($gpx->GetStat()->averagePace).PHP_EOL;
 
 $gpx->SetSmooth(true);
 echo "=============== smooth ================".PHP_EOL;
@@ -33,22 +34,10 @@ $gpx->SetSmooth(false);
 
 $points = $gpx->GetTrack()->getPoints();
 
-echo "Time move: ".GPXStart::secondsToTime($gpx->TimeMove()).PHP_EOL;
+echo "Moving time: ".GPXStart::secondsToTime($gpx->MovingTime()).PHP_EOL;
+$avrpace = $gpx::secondsToTime($gpx->MovingTime()*1000/$gpx->GetStat()->distance);
+echo "Average pace: ".$gpx->AveragePaceMT()." or ".$avrpace.PHP_EOL;
 
-//$n = 0;
-//for($i=0;$i<count($points);$i++){
-////    echo $i.PHP_EOL;
-////    echo $points[$i]->time->format('H:i:s').PHP_EOL;
-//    //------------- calc distance ---------------
-//
-//    if($i<count($points)-1){
-//       $dist = DistanceCalculator::calculate([$points[$i],$points[$i+1]]);
-//       if($dist==0.0){
-//
-//           echo ($i+1)."| Dist minimum ".$dist."\t\t|".$points[$i+1]->time->format('H:i:s')."\t".$n++.PHP_EOL;
-//       }
-//    }
-//}
 
 
 
